@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.team.mvc.dao.ItemDao">
+
+   <!-- 예약 현황 확인용 -->
+   <select id="list" resultType="com.team.mvc.dto.ItemDto">
+      SELECT
+         *
+      FROM
+         ITEM
+      ORDER BY
+         IMONTH ASC, IDAY ASC, ITIME ASC
+   </select>
+
+   <!-- 예약 진행 -->
+   <update id="reserve">
+      UPDATE ITEM
+      SET
+         USERID=#{param1},
+         IRESERVE=#{param5}
+      WHERE
+         IMONTH=#{param2} AND IDAY=#{param3} AND ITIME=#{param4}
+   </update>
+   
+   <!-- 예약 취소 -->
+   <update id="cancel">
+      UPDATE ITEM
+      SET
+         USERID=#{param4},
+         IRESERVE=#{param5}
+      WHERE
+         IMONTH=#{param1} AND IDAY=#{param2} AND ITIME=#{param3}
+   </update>
+   
+   <!-- 예약 내역 페이징 관련 -->
+   <select id="select_total_record" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM
+         ITEM
+      WHERE
+         USERID=#{param1}
+   </select>
+   
+   <!-- 유저 아이디에 해당하는 예약 정보들 검색 (예약 현황 확인 및 취소에서 사용)  -->
+   <select id="view" resultType="com.team.mvc.dto.ItemDto">
+      SELECT
+          *
+        FROM
+          (SELECT
+             ROWNUM R_NUM, A.*
+          FROM
+             (SELECT * FROM ITEM WHERE USERID=#{param1} ORDER BY IMONTH ASC, IDAY ASC, ITIME ASC) A)
+        WHERE
+          R_NUM BETWEEN #{param2} AND #{param3}
+   </select>
+   
+   <!-- 관리자 회원 상세보기 예약현황 -->
+   <select id="view_one_list" resultType="com.team.mvc.dto.ItemDto">
+      SELECT
+          *
+        FROM
+          (SELECT
+             ROWNUM R_NUM, A.*
+          FROM
+             (SELECT * FROM ITEM WHERE USERID=#{param1} ORDER BY IMONTH ASC, IDAY ASC, ITIME ASC) A)
+        WHERE
+          R_NUM BETWEEN #{param2} AND #{param3}
+   </select>
+   <select id="select_total_record_by_userId" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM
+         ITEM
+      WHERE
+         USERID=#{param1}
+   </select>
+   
+</mapper>

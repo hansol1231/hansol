@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.team.mvc.dao.MemberDao">
+
+	<select id="login" resultType="com.team.mvc.dto.MemberDto">
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			USERID = #{param1} AND USERPW = #{param2}
+	</select>
+
+	<select id="login2" resultType="com.team.mvc.dto.MemberDto">
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			USERID = #{param1}
+	</select>
+	
+	<select id="searchId" resultType="com.team.mvc.dto.MemberDto">
+	
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			USERNAME = #{userName} AND USEREMAIL = #{userEmail}
+	
+	</select>
+	
+	<select id="searchPw" resultType="com.team.mvc.dto.MemberDto">
+	
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			USERID = #{userId} AND USERTel = #{userTel}
+	
+	</select>
+	
+	<update id="changeInfo" parameterType="com.team.mvc.dto.MemberDto">
+		UPDATE 
+			MEMBER
+		SET
+			USERNAME = #{userName},
+			USERADDR = #{userAddr},
+			USEREMAIL = #{userEmail},
+			USERTEL = #{userTel}
+		WHERE
+			USERIDX = #{userIdx}
+	</update>
+	
+	<update id="changePw" parameterType="com.team.mvc.dto.MemberDto">
+		UPDATE 
+			MEMBER
+		SET
+			USERPW = #{userPw}
+		WHERE
+			USERIDX = #{userIdx}
+	</update>
+	
+	<update id="leave">
+		UPDATE
+			MEMBER
+		SET
+			USERNAME = '탈퇴 계정'
+		WHERE
+			USERIDX = #{userIdx}
+	</update>
+	
+	<!-- ajax -->
+	<insert id="join" parameterType="com.team.mvc.dto.MemberDto">
+	
+		INSERT
+			INTO
+		MEMBER
+			(USERIDX, USERID, USERPW, USERNAME, USERSN, USERADDR, USEREMAIL, USERTEL)
+		VALUES
+			(MEMBER_SEQ.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userSN}, #{userAddr}, #{userEmail}, #{userTel})	
+	
+	</insert>
+	<select id="select_by_userId" resultType="com.team.mvc.dto.MemberDto">
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			USERID = #{param1}
+	</select>
+	<select id="select_by_userSN" resultType="com.team.mvc.dto.MemberDto">
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			USERSN = #{param1}
+	</select>
+	<select id="select_by_userEmail" resultType="com.team.mvc.dto.MemberDto">
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			USEREMAIL = #{param1}
+	</select>
+	<select id="select_by_userTel" resultType="com.team.mvc.dto.MemberDto">
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			USERTEL = #{param1}
+	</select>
+	<select id="select_by_userName_userEmail" resultType="com.team.mvc.dto.MemberDto">
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			USERNAME = #{param1} AND
+			USEREMAIL = #{param2}
+	</select>
+	<select id="select_by_userId_userTel" resultType="com.team.mvc.dto.MemberDto">
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			USERID = #{param1} AND
+			USERTEL = #{param2}
+	</select>
+
+</mapper>

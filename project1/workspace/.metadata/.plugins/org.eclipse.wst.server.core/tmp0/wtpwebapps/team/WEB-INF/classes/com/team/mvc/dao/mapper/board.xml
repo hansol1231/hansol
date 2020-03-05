@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.team.mvc.dao.BoardDao">
+
+   <select id="list" resultType="com.team.mvc.dto.BoardDto" parameterType="map">
+       SELECT
+          *
+       FROM
+          (SELECT
+             ROWNUM R_NUM, A.*
+          FROM
+             (SELECT * FROM BOARD ORDER BY BREF DESC, BSTEP ASC) A)
+       WHERE
+          R_NUM BETWEEN #{begin} AND #{end}
+    </select>
+   <select id="listOne" resultType="com.team.mvc.dto.BoardDto">
+	   SELECT
+	      *
+	   FROM
+	      BOARD
+	   WHERE
+	      BIDX = #{param1}
+   </select>
+   
+   
+   <!-- 게시글의 총 갯수 구하기 -->
+   <select id="select_total_record" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM
+         BOARD
+   </select>
+   
+   <!-- 게시글 상세보기 -->
+   <select id="view" parameterType="com.team.mvc.dto.BoardDto" resultType="com.team.mvc.dto.BoardDto">
+      SELECT *
+      	FROM BOARD
+      WHERE 
+      	BIDX = #{bIdx}
+   </select>
+   
+   <update id="modify">
+      UPDATE
+         BOARD
+      SET
+         BTITLE = #{param1},
+         BCONTENT = #{param2},
+         BISOPEN = #{param3}
+      WHERE
+         BIDX = #{param4}
+   </update> 
+   
+   <!-- 게시글 작성 -->
+   <insert id="write" parameterType="com.team.mvc.dto.BoardDto">
+      INSERT INTO
+         BOARD (BIDX ,BWRITER, BTITLE, BCONTENT, BISOPEN, USERIDX, BREF, BDEPTH, BDATE, BDELETE, BTYPE, BHIT, BIMAGE)
+      VALUES
+         (BOARD_SEQ.NEXTVAL ,#{bWriter}, #{bTitle}, #{bContent}, #{bIsOpen}, #{userIdx}, BOARD_SEQ.NEXTVAL, 0, SYSDATE, 1, #{bType}, 0, #{bImage})             
+   </insert>
+   
+   <update id="delete" parameterType="com.team.mvc.dto.BoardDto">
+     UPDATE BOARD 
+     SET
+       BDELETE = 0
+     WHERE 
+        BIDX = #{param1}
+   </update>
+   
+   	<!-- 댓글 작성 --> 
+   	<insert id="reply">
+		INSERT INTO BOARD
+			(BIDX, BTITLE, BWRITER, BCONTENT, BDATE, USERIDX, BREF, BSTEP, BDEPTH)
+		VALUES
+			(BOARD_SEQ.NEXTVAL, #{bTitle}, #{bWriter}, #{bContent}, SYSDATE, #{userIdx}, #{bRef}, #{bStep}, #{bDepth})
+	</insert>
+   
+   <!-- 페이징 처리  -->
+   <select id="pagingView" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM
+         BOARD
+   </select>
+   
+   <!-- 조회수 증가 -->
+   <update id="updateHit">
+      UPDATE
+         BOARD
+      SET
+         BHIT = BHIT + 1
+      WHERE
+         BIDX = #{param1}
+   </update>
+   
+   <!-- 항목별 보기 -->
+   <select  id="typeSearch" resultType="com.team.mvc.dto.BoardDto" parameterType="map">
+      SELECT
+            *
+      FROM
+         (SELECT
+            ROWNUM R_NUM, A.*
+         FROM
+            (SELECT * FROM BOARD WHERE BTYPE = #{bType} ORDER BY BREF DESC, BSTEP ASC) A)
+      WHERE
+         R_NUM BETWEEN #{begin} AND #{end}
+   </select>
+   
+   <select id="select_tSearch_record" parameterType="int" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM
+         BOARD
+      WHERE
+         BTYPE = #{bType}
+   </select>
+   
+	<!-- 제목/작성자 검색 -->
+	<select id="querySearch" resultType="com.team.mvc.dto.BoardDto">
+		SELECT * FROM (SELECT	
+			ROWNUM R_NUM, A.*
+		FROM
+			(SELECT * FROM BOARD WHERE ${param1} LIKE #{param2} ORDER BY BREF DESC, BSTEP ASC) A)
+		WHERE
+			R_NUM BETWEEN #{param3} AND #{param4}
+	</select>
+   
+   	<!-- 쿼리에 해당하는 데이터 개수 구하기 -->
+	<select id="select_qSearch_record" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOARD
+		WHERE
+			${param1} LIKE #{param2}
+	</select>
+   
+	<!-- 내 게시글 보기  -->
+	<select id="myList" resultType="com.team.mvc.dto.BoardDto" parameterType="map">
+		SELECT
+			*
+		FROM
+			(SELECT
+				ROWNUM R_NUM, A.*
+			FROM
+				(SELECT * FROM BOARD ORDER BY BREF DESC, BSTEP ASC) A)
+		WHERE
+			R_NUM BETWEEN #{begin} AND #{end} AND USERIDX = #{userIdx} 
+	</select>
+   
+	<!-- bIdx 를 이용한 내게시글 개수 가져오기 -->
+	<select id="select_my_record" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOARD
+		WHERE
+			USERIDX = #{param1} 
+	</select>
+   
+   	<!-- 댓글을 다는 경우 기존의 모든 댓글의 bStep 값을 1씩 증가시켜 준다 -->
+    <update id="update_bStep" parameterType="com.team.mvc.dto.BoardDto">
+    	UPDATE
+       		BOARD
+    	SET
+    		BSTEP = BSTEP + 1
+    	WHERE
+        	BREF = #{bRef} AND
+         	BSTEP > #{bStep}
+   	</update>
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+</mapper>

@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+@font-face { font-family: 'LotteMartHappy'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyMedium.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyMedium.woff') format('woff'); } @font-face { font-family: 'LotteMartHappy'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff') format('woff'); } .lottemarthappy * { font-family: 'LotteMartHappy', sans-serif; }
+body{
+   font-family: 'LotteMartHappy'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyMedium.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyMedium.woff') format('woff'); } @font-face { font-family: 'LotteMartHappy'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff') format('woff'); } .lottemarthappy * { font-family: 'LotteMartHappy', sans-serif;
+}   
+.wrap *{
+   font-family: 'LotteMartHappy'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyMedium.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyMedium.woff') format('woff'); } @font-face { font-family: 'LotteMartHappy'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff') format('woff'); } .lottemarthappy * { font-family: 'LotteMartHappy', sans-serif;
+}   
+*{
+   box-sizing: border-box;
+   font-family: 'LotteMartHappy'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyMedium.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyMedium.woff') format('woff'); } @font-face { font-family: 'LotteMartHappy'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff') format('woff'); } .lottemarthappy * { font-family: 'LotteMartHappy', sans-serif;
+}
+
+.wrap *{
+}
+.nav *{
+}
+.footer *{
+}
+
+.header{
+	width: 100%;
+	height: 200px;
+	background: white;
+	margin: auto;
+	border-bottom: 5px solid #f5f5f5;
+	margin-bottom: 50px;
+	background-color: white;
+}
+.logo{
+	width: 100%;
+	height: 100%;
+	background: white;
+	margin: auto;
+	border-radius: 5px;
+	background-size: 800px 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url('../img/logo.png');
+	z-index: 100;
+}
+.logo:hover{
+	cursor: pointer;
+}
+.footer{
+   width: 100%;
+   background: white;
+   text-align: center;
+   padding: 50px;
+   margin: auto;
+   border-radius: 5px;
+   z-index: 100;
+   background-color: #f5f5f5;
+   margin-top: 100px;
+}
+.footer h4{
+   z-index: 100;
+}
+
+@media screen and (min-width: 769px) {
+	.main{
+	   width: 700px;
+	   height: 1000px;
+	   margin: auto;
+	   border-radius: 5px;
+	   position: relative;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.main{
+	   width: 1000px;
+	   height: 1000px;
+	   margin: auto;
+	   border-radius: 5px;
+	   position: relative;
+	}
+}
+
+.header_logo:hover{
+   cursor: pointer;
+}
+.menu {
+    position: absolute;
+    left: -150px;
+}
+.right_menu {
+    position: absolute;
+    right: -150px;
+}
+.menu ul{
+   list-style: none;
+   margin: auto;
+   padding-left: 10px;
+   padding-right: 10px;
+   z-index: 100;
+}
+.menu ul .dropdown{
+	margin: auto;
+   	width: 120px;
+}
+.dropdown button{
+   width: 120px;
+   padding-top: 15px;
+   padding-bottom: 15px;
+   text-align: center;
+}
+.right_menu ul{
+	list-style: none;
+   	margin: auto;
+   	padding-left: 10px;
+   	padding-right: 10px;
+  	z-index: 100;
+}
+.right_menu .dropdown{
+	margin: auto;
+   	width: 120px;
+}
+.right_menu .log_text{
+   display: inline-block;
+   width: 300px;
+   margin-bottom: 50px;
+   z-index: 100;
+}
+.right_menu input,
+.right_menu button
+.menu input, 
+.menu button{
+   height: 50px;
+   width: 120px;
+   z-index: 100;
+}
+.dropdown{
+   padding-left: 2px; 
+   padding-right: 2px; 
+}
+.dropdown:hover button{
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
