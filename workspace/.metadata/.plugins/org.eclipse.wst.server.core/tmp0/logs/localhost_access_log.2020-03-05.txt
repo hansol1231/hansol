@@ -1,0 +1,10 @@
+127.0.0.1 - - [05/Mar/2020:21:59:09 +0900] "GET / HTTP/1.1" 404 1115
+0:0:0:0:0:0:0:1 - - [05/Mar/2020:21:59:10 +0900] "GET /mvc/ HTTP/1.1" 200 9721
+0:0:0:0:0:0:0:1 - - [05/Mar/2020:21:59:10 +0900] "GET /mvc/resources/css/main.css HTTP/1.1" 200 8868
+0:0:0:0:0:0:0:1 - - [05/Mar/2020:21:59:10 +0900] "GET /mvc/resources/css/header.css HTTP/1.1" 200 4811
+0:0:0:0:0:0:0:1 - - [05/Mar/2020:21:59:10 +0900] "GET /mvc/resources/back/back2.jpg HTTP/1.1" 200 105599
+0:0:0:0:0:0:0:1 - - [05/Mar/2020:21:59:10 +0900] "GET /mvc/resources/back/back.jpg HTTP/1.1" 200 183945
+0:0:0:0:0:0:0:1 - - [05/Mar/2020:21:59:10 +0900] "GET /mvc/resources/back/back3.jpg HTTP/1.1" 200 398669
+0:0:0:0:0:0:0:1 - - [05/Mar/2020:21:59:10 +0900] "GET /mvc/resources/back/back4.jpg HTTP/1.1" 200 1098786
+0:0:0:0:0:0:0:1 - - [05/Mar/2020:21:59:10 +0900] "GET /mvc/resources/img/logo.png HTTP/1.1" 200 6427
+0:0:0:0:0:0:0:1 - - [05/Mar/2020:21:59:11 +0900] "GET /favicon.ico HTTP/1.1" 404 1126
