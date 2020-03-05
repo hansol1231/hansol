@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.team.mvc.dao.AdminDao">
+
+   <select id="adminList" resultType="com.team.mvc.dto.MemberDto">
+       SELECT
+          *
+       FROM
+          (SELECT
+             ROWNUM R_NUM, A.*
+          FROM
+             (SELECT * FROM MEMBER ORDER BY USERIDX ASC) A)
+       WHERE
+          R_NUM BETWEEN #{begin} AND #{end}
+   </select>
+   
+   <select id="select_member_record" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM
+         MEMBER
+   </select>
+      
+   <select id="adminView" resultType="com.team.mvc.dto.MemberDto">
+      SELECT
+         *
+      FROM
+         MEMBER
+      WHERE
+         USERIDX = #{param1}
+   </select>
+   
+   <update id="adminModify">
+      UPDATE
+         MEMBER
+      SET
+         USERID = #{param1},
+            USERPW = #{param2},
+            USERNAME = #{param3},
+            USERSN = #{param4},
+            USERADDR = #{param5},
+          USEREMAIL = #{param6},
+          USERTEL = #{param7}
+      WHERE
+         USERIDX = #{param8}
+   </update>
+   
+   <insert id="adminWrite">
+      INSERT INTO
+         MEMBER(USERIDX, USERID, USERPW, USERNAME, USERSN, USERADDR, USEREMAIL, USERTEL)
+      VALUES
+         (MEMBER_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
+   </insert>
+  
+   
+   <select id="dynamicQueryList" resultType="com.team.mvc.dto.MemberDto">
+         SELECT
+               *
+         FROM
+            (SELECT
+            ROWNUM R_NUM, A.*
+         FROM
+            (SELECT * FROM MEMBER WHERE ${param1} LIKE #{param2} ORDER BY USERIDX ASC) A)
+      WHERE
+         R_NUM BETWEEN #{param3} AND #{param4}
+    </select>
+    
+    <select id="select_search_record" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM
+         MEMBER
+      WHERE
+              ${param1} LIKE #{param2}
+    </select>
+   
+   <insert id="adminAddCalendar">
+      INSERT INTO
+         ITEM(IMONTH, IDAY, ITIME)
+      VALUES
+         (#{param1}, #{param2}, #{param3})
+   </insert>
+   
+   <select id="adminSearchCalendar" resultType="com.team.mvc.dto.ItemDto">
+      SELECT
+         *
+      FROM
+         ITEM
+      WHERE
+         IMONTH=#{param1} AND ITIME=#{param2}
+   </select>
+   
+   <delete id="adminRemoveCalendar" parameterType="int">
+      <![CDATA[
+      DELETE FROM
+         ITEM
+      WHERE
+         IMONTH <= #{iMonth} AND IDAY <= #{iDay}
+      ]]>
+   </delete>
+   
+   <!-- 예약된 데이터만 받아오기 (관리자 페이지용) -->
+   <select id="reservedList" resultType="com.team.mvc.dto.ItemDto">
+      SELECT
+          *
+        FROM
+           (SELECT
+              ROWNUM R_NUM, A.*
+           FROM
+              (SELECT * FROM ITEM WHERE IRESERVE = 'yes' OR IRESERVE = 'sby' ORDER BY IMONTH ASC, IDAY ASC, ITIME ASC) A)
+        WHERE
+           R_NUM BETWEEN #{begin} AND #{end}
+   </select>
+   
+   <select id="select_item_record" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM
+         ITEM
+      WHERE
+         IRESERVE = 'yes' OR IRESERVE = 'sby'
+   </select>
+   
+   <update id="ackReserve">
+	  UPDATE
+	  	 ITEM
+	  SET
+	  	 IRESERVE=#{param4}
+	  WHERE
+	  	 IMONTH=#{param1} AND IDAY=#{param2} AND ITIME=#{param3}
+   </update>
+   
+   <select id="reserveSearch" resultType="com.team.mvc.dto.ItemDto">
+         SELECT
+               *
+         FROM
+            (SELECT
+            ROWNUM R_NUM, A.*
+         FROM
+            (SELECT * FROM ITEM WHERE ${param1} LIKE #{param2} ORDER BY IMONTH ASC, IDAY ASC, ITIME ASC) A)
+      WHERE
+         R_NUM BETWEEN #{param3} AND #{param4}
+    </select>
+    
+    <select id="select_reserve_record" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM
+         ITEM
+      WHERE
+         ${param1} LIKE #{param2}
+    </select>
+
+</mapper>
